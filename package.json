@@ -20,13 +20,14 @@
     "type": "git",
     "url": "git+https://github.com:zhiyuanzmj/vue-form-create"
   },
+  "publishConfig": {
+    "@zhiyuanzmj:registry": "https://npm.pkg.github.com",
+    "access": "public"
+  },
   "files": [
     "dist/*",
     "src/index.d.ts"
   ],
-  "publishConfig": {
-    "@zhiyuanzmj:registry": "https://npm.pkg.github.com"
-  },
   "scripts": {
     "serve": "vue-cli-service serve ./example/main.ts --open",
     "build": "vue-cli-service build --target lib --name formCreate ./src/index.ts",
