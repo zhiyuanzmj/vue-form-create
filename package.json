@@ -1,12 +1,12 @@
 {
-  "name": "vue-form-create",
+  "name": "@zhiyuanzmj/vue-form-create",
   "description": "一个基于Vue3.0 + TS 的表单设计器",
   "version": "1.2.5",
   "main": "dist/formCreate.umd.min.js",
   "types": "src/index.d.ts",
-  "homepage": "https://github.com/fuchengwei/vue-form-create",
+  "homepage": "https://github.com/zhiyuanzmj/vue-form-create",
   "author": {
-    "name": "fuchengwei"
+    "name": "zhiyuanzmj"
   },
   "keywords": [
     "Form",
@@ -18,12 +18,15 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com:fuchengwei/vue-form-create"
+    "url": "git+https://github.com:zhiyuanzmj/vue-form-create"
   },
   "files": [
     "dist/*",
     "src/index.d.ts"
   ],
+  "publishConfig": {
+    "@zhiyuanzmj:registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
     "serve": "vue-cli-service serve ./example/main.ts --open",
     "build": "vue-cli-service build --target lib --name formCreate ./src/index.ts",
