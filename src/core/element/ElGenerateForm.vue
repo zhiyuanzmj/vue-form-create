@@ -50,7 +50,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs, watch } from 'vue'
+import { defineComponent, reactive, toRefs, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import ElGenerateFormItem from './ElGenerateFormItem.vue'
 import { element } from '@/config'
@@ -71,6 +71,9 @@ export default defineComponent({
     disabled: {
       type: Boolean,
       default: false
+    },
+    request: {
+      type: Function
     }
   },
   setup(props) {
@@ -104,11 +107,20 @@ export default defineComponent({
     }
 
     const generateOptions = (list: any[]) => {
-      list.forEach(item => {
+      list.forEach(async item => {
         if (item.type === 'grid') {
           item.columns.forEach((col: any) => generateOptions(col.list))
         } else {
           if (item.options.remote && item.options.remoteFunc) {
+            if (props.request) {
+              const { data } = await props.request(item.options.remoteFunc)
+              item.options.remoteOptions = data.map((i:any) => ({
+                label: i[item.options.props.label],
+                value: i[item.options.props.value],
+                children: i[item.options.props.children]
+              }))
+              return
+            }
             fetch(item.options.remoteFunc)
               .then(resp => resp.json())
               .then(json => {
@@ -137,11 +149,6 @@ export default defineComponent({
       },
       { deep: true, immediate: true }
     )
-
-    onMounted(() => {
-      generateModel(state.widgetForm?.list ?? [])
-      generateOptions(state.widgetForm?.list ?? [])
-    })
 
     const getData = () => {
       return new Promise((resolve, reject) => {

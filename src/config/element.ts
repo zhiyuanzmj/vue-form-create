@@ -118,7 +118,7 @@ export const basicComponents = [
       width: '',
       inline: true,
       remote: false,
-      showLabel: false,
+      showLabel: true,
       remoteFunc:
         'https://raw.githubusercontent.com/fuchengwei/vue-form-create/master/mock/mock.json',
       options: [
@@ -152,7 +152,7 @@ export const basicComponents = [
       width: '',
       inline: true,
       remote: false,
-      showLabel: false,
+      showLabel: true,
       remoteFunc:
         'https://raw.githubusercontent.com/fuchengwei/vue-form-create/master/mock/mock.json',
       options: [
@@ -229,7 +229,7 @@ export const basicComponents = [
       multiple: false,
       placeholder: '',
       remote: false,
-      showLabel: false,
+      showLabel: true,
       filterable: false,
       clearable: false,
       disabled: false,
