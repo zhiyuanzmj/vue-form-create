@@ -204,6 +204,10 @@
       </el-upload>
     </template>
 
+    <template v-if="element.type==='download'">
+      <el-button size="default" style="margin-top:-4px" @click="download(element.options.defaultValue,element.label)" type="text">下载</el-button>
+    </template>
+
     <template v-if="element.type === 'richtext-editor'">
       <RichTextEditor
         v-model:value="data"
@@ -254,6 +258,9 @@ export default defineComponent({
     disabled: {
       type: Boolean,
       required: true
+    },
+    request: {
+      type: Function
     }
   },
   setup(props) {
@@ -275,7 +282,20 @@ export default defineComponent({
     return {
       data,
       handleFilterOption,
-      handleUploadSuccess
+      handleUploadSuccess,
+      async download(defaultValue:string, label:string) {
+        const a = document.createElement('a')
+        if (!props.request) return
+        a.href = await props.request({
+          url: `/sys/common/static/${defaultValue}`,
+          responseType: 'blob'
+        }).then((i: any) => {
+          if (i.size === 0) return ''
+          return URL.createObjectURL(i)
+        })
+        a.download = label + '.' + defaultValue.split('.')[1]
+        a.click()
+      }
     }
   }
 })

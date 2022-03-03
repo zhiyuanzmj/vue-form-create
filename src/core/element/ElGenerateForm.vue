@@ -27,6 +27,7 @@
             >
               <ElGenerateFormItem
                 v-for="colItem of col.list"
+                :request="request"
                 :model="model"
                 :key="colItem.key"
                 :element="colItem"

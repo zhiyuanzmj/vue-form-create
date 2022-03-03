@@ -309,6 +309,14 @@ export const advanceComponents = [
     }
   },
   {
+    label: '下载',
+    type: 'download',
+    options: {
+      defaultValue: '',
+      name: 'file'
+    }
+  },
+  {
     label: '富文本编辑器',
     type: 'richtext-editor',
     options: {

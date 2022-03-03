@@ -339,6 +339,12 @@
       </el-form-item>
     </template>
 
+    <template v-if="data.type==='download'">
+      <el-form-item label="地址">
+         <el-input v-model="data.options.defaultValue" />
+      </el-form-item>
+    </template>
+
     <template v-if="data.type === 'img-upload'">
       <el-form-item label="模式">
         <el-radio-group v-model="data.options.listType">

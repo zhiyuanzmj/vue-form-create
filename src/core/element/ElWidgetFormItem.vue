@@ -223,6 +223,10 @@
         </el-upload>
       </template>
 
+      <template v-if="element.type === 'download'">
+        <el-button type="text" size="default" style="margin-top:-4px">下载</el-button>
+      </template>
+
       <template v-if="element.type === 'richtext-editor'">
         <RichTextEditor
           :value="element.options.defaultValue"
