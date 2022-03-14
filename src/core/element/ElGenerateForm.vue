@@ -44,6 +44,7 @@
           :element="widgetForm.list[index]"
           :config="data.config"
           :disabled="disabled"
+          :request="request"
         />
       </template>
     </el-form>
@@ -114,7 +115,7 @@ export default defineComponent({
         } else {
           if (item.options.remote && item.options.remoteFunc) {
             if (props.request) {
-              const { data } = await props.request(item.options.remoteFunc)
+              const { data } = await props.request({ url: item.options.remoteFunc })
               item.options.remoteOptions = data.map((i:any) => ({
                 label: i[item.options.props.label],
                 value: i[item.options.props.value],

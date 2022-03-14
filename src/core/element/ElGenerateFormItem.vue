@@ -287,7 +287,7 @@ export default defineComponent({
         const a = document.createElement('a')
         if (!props.request) return
         a.href = await props.request({
-          url: `/sys/common/static/${defaultValue}`,
+          url: defaultValue,
           responseType: 'blob'
         }).then((i: any) => {
           if (i.size === 0) return ''

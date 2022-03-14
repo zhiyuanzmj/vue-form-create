@@ -93,6 +93,7 @@
 
       <el-dialog v-model="previewVisible" title="预览" :width="800">
         <ElGenerateForm
+          :request="request"
           ref="generateFormRef"
           v-if="previewVisible"
           :data="widgetForm"
@@ -241,6 +242,9 @@ export default defineComponent({
     layoutFields: {
       type: Array as PropType<Array<string>>,
       default: () => ['grid']
+    },
+    request: {
+      type: Function
     }
   },
   setup() {
