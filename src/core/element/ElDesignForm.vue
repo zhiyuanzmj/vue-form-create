@@ -181,7 +181,7 @@ import ElWidgetConfig from './ElWidgetConfig.vue'
 import ElFormConfig from './ElFormConfig.vue'
 import { element } from '@/config'
 import { copy } from '@/utils'
-import { CodeType, PlatformType } from '@/enums'
+import { CodeType } from '@/enums'
 import generateCode from '@/utils/generateCode'
 import { WidgetForm } from '@/config/element'
 
@@ -312,8 +312,7 @@ export default defineComponent({
       if (state.dataCodeVisible) {
         state.dataCodeTemplate = generateCode(
           state.widgetForm,
-          state.codeLanguage,
-          PlatformType.Element
+          state.codeLanguage
         )!
       }
     })
@@ -340,7 +339,7 @@ export default defineComponent({
     }
 
     const getTemplate = (codeType: CodeType) =>
-      generateCode(state.widgetForm, codeType, PlatformType.Element)
+      generateCode(state.widgetForm, codeType)
 
     const clear = () => handleClearable()
 
