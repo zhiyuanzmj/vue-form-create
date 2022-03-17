@@ -1,5 +1,11 @@
 <template>
-  <el-form-item v-if="element" :key="element.key" :label="element.label" :prop="element.model">
+  <el-form-item
+    v-if="element"
+    :key="element.key"
+    :label="element.label"
+    :prop="element.model"
+    :label-width="element.labelWidth"
+  >
     <template v-if="element.type === 'input'">
       <el-input
         v-model="data"
@@ -10,10 +16,18 @@
         :readonly="element.options.readonly"
         :disabled="disabled || element.options.disabled"
       >
-        <template #prefix v-if="element.options.prefix">{{ element.options.prefix }}</template>
-        <template #suffix v-if="element.options.suffix">{{ element.options.suffix }}</template>
-        <template #prepend v-if="element.options.prepend">{{ element.options.prepend }}</template>
-        <template #append v-if="element.options.append">{{ element.options.append }}</template>
+        <template #prefix v-if="element.options.prefix">{{
+          element.options.prefix
+        }}</template>
+        <template #suffix v-if="element.options.suffix">{{
+          element.options.suffix
+        }}</template>
+        <template #prepend v-if="element.options.prepend">{{
+          element.options.prepend
+        }}</template>
+        <template #append v-if="element.options.append">{{
+          element.options.append
+        }}</template>
       </el-input>
     </template>
 
@@ -28,10 +42,18 @@
         :readonly="element.options.readonly"
         :show-password="element.options.showPassword"
       >
-        <template #prefix v-if="element.options.prefix">{{ element.options.prefix }}</template>
-        <template #suffix v-if="element.options.suffix">{{ element.options.suffix }}</template>
-        <template #prepend v-if="element.options.prepend">{{ element.options.prepend }}</template>
-        <template #append v-if="element.options.append">{{ element.options.append }}</template>
+        <template #prefix v-if="element.options.prefix">{{
+          element.options.prefix
+        }}</template>
+        <template #suffix v-if="element.options.suffix">{{
+          element.options.suffix
+        }}</template>
+        <template #prepend v-if="element.options.prepend">{{
+          element.options.prepend
+        }}</template>
+        <template #append v-if="element.options.append">{{
+          element.options.append
+        }}</template>
       </el-input>
     </template>
 
@@ -70,14 +92,15 @@
       >
         <el-radio
           v-for="item of element.options.remote
-          ? element.options.remoteOptions
-          : element.options.options"
+            ? element.options.remoteOptions
+            : element.options.options"
           :key="item.value"
           :label="item.value"
           :style="{
             display: element.options.inline ? 'inline-block' : 'block'
           }"
-        >{{ element.options.showLabel ? item.label : item.value }}</el-radio>
+          >{{ element.options.showLabel ? item.label : item.value }}</el-radio
+        >
       </el-radio-group>
     </template>
 
@@ -89,17 +112,15 @@
       >
         <el-checkbox
           v-for="item of element.options.remote
-          ? element.options.remoteOptions
-          : element.options.options"
+            ? element.options.remoteOptions
+            : element.options.options"
           :key="item.value"
           :value="item.value"
           :style="{
             display: element.options.inline ? 'inline-block' : 'block'
           }"
         >
-          {{
-            element.options.showLabel ? item.label : item.value
-          }}
+          {{ element.options.showLabel ? item.label : item.value }}
         </el-checkbox>
       </el-checkbox-group>
     </template>
@@ -151,8 +172,8 @@
       >
         <el-option
           v-for="item of element.options.remote
-          ? element.options.remoteOptions
-          : element.options.options"
+            ? element.options.remoteOptions
+            : element.options.options"
           :key="item.value"
           :value="item.value"
           :label="element.options.showLabel ? item.label : item.value"
@@ -190,22 +211,34 @@
         :name="element.options.file"
         :action="element.options.action"
         :accept="element.options.accept"
-        :file-list="element.options.defaultValue"
         :listType="element.options.listType"
         :multiple="element.options.multiple"
         :limit="element.options.limit"
         :disabled="disabled || element.options.disabled"
         :on-success="handleUploadSuccess"
       >
-        <SvgIcon v-if="element.options.listType === 'picture-card'" iconClass="insert" />
+        <template v-if="element.options.listType === 'picture-card'">
+          <img
+            v-if="element.options.defaultValue?.length"
+            style="height: 100%; width: 100%"
+            :src="'/api/sys/common/static/' + element.options.defaultValue"
+          />
+          <SvgIcon v-else iconClass="insert" />
+        </template>
         <el-button v-else>
-          <SvgIcon iconClass="img-upload" style="margin-right: 10px;" />点击上传
+          <SvgIcon iconClass="img-upload" style="margin-right: 10px" />点击上传
         </el-button>
       </el-upload>
     </template>
 
-    <template v-if="element.type==='download'">
-      <el-button size="default" style="margin-top:-4px" @click="download(element.options.defaultValue,element.label)" type="text">下载</el-button>
+    <template v-if="element.type === 'download'">
+      <el-button
+        size="default"
+        style="margin-top: -4px"
+        @click="download(element.options.defaultValue, element.label)"
+        type="text"
+        >下载</el-button
+      >
     </template>
 
     <template v-if="element.type === 'richtext-editor'">
@@ -266,7 +299,7 @@ export default defineComponent({
   setup(props) {
     const data = computed({
       get: () => props.model[props.element.model],
-      set: val => {
+      set: (val) => {
         // eslint-disable-next-line vue/no-mutating-props
         props.model[props.element.model] = val
       }
@@ -283,16 +316,18 @@ export default defineComponent({
       data,
       handleFilterOption,
       handleUploadSuccess,
-      async download(defaultValue:string, label:string) {
+      async download(defaultValue: string, label: string) {
         const a = document.createElement('a')
         if (!props.request) return
-        a.href = await props.request({
-          url: defaultValue,
-          responseType: 'blob'
-        }).then((i: any) => {
-          if (i.size === 0) return ''
-          return URL.createObjectURL(i)
-        })
+        a.href = await props
+          .request({
+            url: '/sys/common/static/' + defaultValue,
+            responseType: 'blob'
+          })
+          .then((i: any) => {
+            if (i.size === 0) return ''
+            return URL.createObjectURL(i)
+          })
         a.download = label + '.' + defaultValue.split('.')[1]
         a.click()
       }

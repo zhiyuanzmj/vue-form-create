@@ -109,14 +109,16 @@ export default defineComponent({
     }
 
     const generateOptions = (list: any[]) => {
-      list.forEach(async item => {
+      list.forEach(async (item) => {
         if (item.type === 'grid') {
           item.columns.forEach((col: any) => generateOptions(col.list))
         } else {
           if (item.options.remote && item.options.remoteFunc) {
             if (props.request) {
-              const { data } = await props.request({ url: item.options.remoteFunc })
-              item.options.remoteOptions = data.map((i:any) => ({
+              const { data } = await props.request({
+                url: item.options.remoteFunc
+              })
+              item.options.remoteOptions = data.map((i: any) => ({
                 label: i[item.options.props.label],
                 value: i[item.options.props.value],
                 children: i[item.options.props.children]
@@ -124,10 +126,10 @@ export default defineComponent({
               return
             }
             fetch(item.options.remoteFunc)
-              .then(resp => resp.json())
-              .then(json => {
+              .then((resp) => resp.json())
+              .then((json) => {
                 if (json instanceof Array) {
-                  item.options.remoteOptions = json.map(data => ({
+                  item.options.remoteOptions = json.map((data) => ({
                     label: data[item.options.props.label],
                     value: data[item.options.props.value],
                     children: data[item.options.props.children]
@@ -141,7 +143,7 @@ export default defineComponent({
 
     watch(
       () => props.data,
-      val => {
+      (val) => {
         state.widgetForm =
           (val && JSON.parse(JSON.stringify(val))) ?? element.widgetForm()
         state.model = {}

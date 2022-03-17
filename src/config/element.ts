@@ -302,15 +302,16 @@ export const advanceComponents = [
       method: 'post',
       listType: 'text',
       accept: 'image/*',
-      limit: 3,
+      limit: 1,
       multiple: false,
-      disabled: false,
+      disabled: true,
       rules
     }
   },
   {
     label: '下载',
     type: 'download',
+    labelWidth: 'auto',
     options: {
       defaultValue: '',
       name: 'file'

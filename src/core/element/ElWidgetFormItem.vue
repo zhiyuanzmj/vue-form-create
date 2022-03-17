@@ -6,6 +6,7 @@
       :key="element.key"
       :class="{ active: selectWidget?.key === element.key }"
       :label="element.label"
+      :label-width="element.labelWidth"
       :rules="element.options.rules"
     >
       <template v-if="element.type === 'input'">
@@ -206,25 +207,30 @@
           :name="element.options.file"
           :action="element.options.action"
           :accept="element.options.accept"
-          :file-list="element.options.defaultValue"
           :listType="element.options.listType"
           :multiple="element.options.multiple"
           :limit="element.options.limit"
           :disabled="element.options.disabled"
         >
-          <SvgIcon
-            v-if="element.options.listType === 'picture-card'"
-            iconClass="insert"
-          />
+          <template v-if="element.options.listType === 'picture-card'">
+            <img
+              v-if="element.options.defaultValue?.length"
+              style="height: 100%; width: 100%"
+              :src="'/api/sys/common/static/' + element.options.defaultValue"
+            />
+            <SvgIcon v-else iconClass="insert" />
+          </template>
           <el-button v-else>
-            <SvgIcon iconClass="img-upload" style="margin-right: 10px;" />
+            <SvgIcon iconClass="img-upload" style="margin-right: 10px" />
             点击上传
           </el-button>
         </el-upload>
       </template>
 
       <template v-if="element.type === 'download'">
-        <el-button type="text" size="default" style="margin-top:-4px">下载</el-button>
+        <el-button type="text" size="default" style="margin-top: -4px"
+          >下载</el-button
+        >
       </template>
 
       <template v-if="element.type === 'richtext-editor'">
