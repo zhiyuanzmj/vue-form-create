@@ -111,7 +111,7 @@ import { WidgetForm } from '@/config/element'
 
 const handleListInsert = (key: string, list: any[], obj: any) => {
   const newList: any[] = []
-  list.forEach(item => {
+  list.forEach((item) => {
     if (item.key === key) {
       newList.push(item)
       newList.push(obj)
@@ -130,7 +130,7 @@ const handleListInsert = (key: string, list: any[], obj: any) => {
 
 const handleListDelete = (key: string, list: any[]) => {
   const newList: any[] = []
-  list.forEach(item => {
+  list.forEach((item) => {
     if (item.key !== key) {
       if (item.columns) {
         item.columns = item.columns.map((col: any) => ({
@@ -291,9 +291,9 @@ export default defineComponent({
           ...row.columns[index].list[newIndex],
           options: {
             ...row.columns[index].list[newIndex].options,
-            options: row.columns[index].list[
-              newIndex
-            ].options.options.map((item: any) => ({ ...item }))
+            options: row.columns[index].list[newIndex].options.options.map(
+              (item: any) => ({ ...item })
+            )
           }
         }
       }

@@ -1,10 +1,10 @@
 <template>
   <el-form label-position="top" size="small" v-if="data" :key="data.key">
-    <el-form-item label="字段标识" v-if="data.type !== 'grid'">
+    <el-form-item label="字段标识" v-if="!['grid'].includes(data.type)">
       <el-input v-model="data.model" />
     </el-form-item>
 
-    <el-form-item label="标题" v-if="data.type !== 'grid'">
+    <el-form-item label="标题" v-if="!['grid', 'table'].includes(data.type)">
       <el-input v-model="data.label" />
     </el-form-item>
 
@@ -20,20 +20,20 @@
       label="默认内容"
       v-if="
         hasKey('defaultValue') &&
-          (data.type === 'input' ||
-            data.type === 'password' ||
-            data.type === 'textarea' ||
-            data.type === 'text' ||
-            data.type === 'rate' ||
-            data.type === 'switch' ||
-            data.type === 'slider')
+        (data.type === 'input' ||
+          data.type === 'password' ||
+          data.type === 'textarea' ||
+          data.type === 'text' ||
+          data.type === 'rate' ||
+          data.type === 'switch' ||
+          data.type === 'slider')
       "
     >
       <el-input
         v-if="
           data.type === 'input' ||
-            data.type === 'password' ||
-            data.type === 'text'
+          data.type === 'password' ||
+          data.type === 'text'
         "
         v-model="data.options.defaultValue"
       />
@@ -172,34 +172,28 @@
         v-if="data.options.remote"
         alignment="start"
         direction="vertical"
-        style="margin-top: 10px;"
+        style="margin-top: 10px"
       >
         <el-input v-model="data.options.remoteFunc">
-          <template #prepend>
-            远端方法
-          </template>
+          <template #prepend> 远端方法 </template>
         </el-input>
         <el-input v-model="data.options.props.label">
-          <template #prepend>
-            标签
-          </template>
+          <template #prepend> 标签 </template>
         </el-input>
         <el-input v-model="data.options.props.value">
-          <template #prepend>
-            值
-          </template>
+          <template #prepend> 值 </template>
         </el-input>
       </el-space>
       <template v-else>
         <template
           v-if="
             data.type === 'radio' ||
-              (data.type === 'select' && !data.options.multiple)
+            (data.type === 'select' && !data.options.multiple)
           "
         >
           <el-radio-group
             v-model="data.options.defaultValue"
-            style="margin-top: 8px;"
+            style="margin-top: 8px"
           >
             <Draggable
               tag="ul"
@@ -214,7 +208,7 @@
                   <div>
                     <el-radio
                       :label="element.value"
-                      style="margin-right: 0px; margin-bottom: 0;"
+                      style="margin-right: 0px; margin-bottom: 0"
                     >
                       <el-input
                         :style="{
@@ -231,7 +225,7 @@
                       />
                     </el-radio>
                     <SvgIcon
-                      style="margin: 0 5px; cursor: move;"
+                      style="margin: 0 5px; cursor: move"
                       iconClass="item"
                       className="drag-item"
                     />
@@ -252,12 +246,12 @@
         <template
           v-if="
             data.type === 'checkbox' ||
-              (data.type === 'select' && data.options.multiple)
+            (data.type === 'select' && data.options.multiple)
           "
         >
           <el-checkbox-group
             v-model="data.options.defaultValue"
-            style="margin-top: 8px;"
+            style="margin-top: 8px"
           >
             <Draggable
               tag="ul"
@@ -271,7 +265,7 @@
                 <li>
                   <el-checkbox
                     :label="element.value"
-                    style="margin-right: 0px; margin-bottom: 0;"
+                    style="margin-right: 0px; margin-bottom: 0"
                   >
                     <el-input
                       :style="{
@@ -286,7 +280,7 @@
                     />
                   </el-checkbox>
                   <SvgIcon
-                    style="margin: 0 5px; cursor: move;"
+                    style="margin: 0 5px; cursor: move"
                     iconClass="item"
                     className="drag-item"
                   />
@@ -303,7 +297,7 @@
           </el-checkbox-group>
         </template>
 
-        <div style="margin-top: 5px;">
+        <div style="margin-top: 5px">
           <el-button type="text" @click="handleInsertOption"
             >添加选项</el-button
           >
@@ -314,7 +308,7 @@
     <template v-if="data.type === 'time'">
       <el-form-item label="默认值">
         <el-time-picker
-          style="width: 100%;"
+          style="width: 100%"
           v-model="data.options.defaultValue"
           :format="data.options.format"
           :placeholder="data.options.placeholder"
@@ -325,7 +319,7 @@
     <template v-if="data.type === 'date'">
       <el-form-item label="默认值">
         <el-date-picker
-          style="width: 100%;"
+          style="width: 100%"
           v-model="data.options.defaultValue"
           :format="data.options.format"
           :placeholder="data.options.placeholder"
@@ -339,9 +333,9 @@
       </el-form-item>
     </template>
 
-    <template v-if="data.type==='download'">
+    <template v-if="data.type === 'download'">
       <el-form-item label="地址">
-         <el-input v-model="data.options.defaultValue" />
+        <el-input v-model="data.options.defaultValue" />
       </el-form-item>
     </template>
 
@@ -383,27 +377,62 @@
     <el-form-item label="远端数据" v-if="data.type === 'cascader'">
       <el-space direction="vertical" alignment="start">
         <el-input v-model="data.options.remoteFunc">
-          <template #prepend>
-            远端方法
-          </template>
+          <template #prepend> 远端方法 </template>
         </el-input>
         <el-input v-model="data.options.props.label">
-          <template #prepend>
-            标签
-          </template>
+          <template #prepend> 标签 </template>
         </el-input>
         <el-input v-model="data.options.props.value">
-          <template #prepend>
-            值
-          </template>
+          <template #prepend> 值 </template>
         </el-input>
         <el-input v-model="data.options.props.children">
-          <template #prepend>
-            子选项
-          </template>
+          <template #prepend> 子选项 </template>
         </el-input>
       </el-space>
     </el-form-item>
+
+    <template v-if="data.type === 'table'">
+      <el-form-item label="列配置项">
+        <Draggable
+          tag="ul"
+          item-key="index"
+          ghostClass="ghost"
+          handle=".drag-item"
+          :group="{ name: 'options' }"
+          :list="data.columns"
+        >
+          <template #item="{ element, index }">
+            <li style="margin-bottom: 5px; display: flex; gap: 5px">
+              <SvgIcon iconClass="item" className="drag-item" />
+              <el-input placeholder="显示名称" v-model="element.label" />
+              <el-input placeholder="字段字段" v-model="element.prop" />
+              <el-button
+                type="primary"
+                circle
+                style="margin-left: 5px"
+                @click="data.columns.splice(index, 1)"
+              >
+                <SvgIcon iconClass="delete" />
+              </el-button>
+            </li>
+          </template>
+        </Draggable>
+
+        <div>
+          <el-button type="text" @click="data.columns.push({})">
+            添加列
+          </el-button>
+        </div>
+      </el-form-item>
+
+      <el-form-item label="对齐方式">
+        <el-radio-group v-model="data.options.align">
+          <el-radio-button label="left">居左对齐</el-radio-button>
+          <el-radio-button label="center">居中对齐</el-radio-button>
+          <el-radio-button label="right">巨右对齐</el-radio-button>
+        </el-radio-group>
+      </el-form-item>
+    </template>
 
     <template v-if="data.type === 'grid'">
       <el-form-item label="栅格间隔">
@@ -420,7 +449,7 @@
           :list="data.columns"
         >
           <template #item="{ element, index }">
-            <li style="margin-bottom: 5px;">
+            <li style="margin-bottom: 5px">
               <SvgIcon iconClass="item" className="drag-item" />
               <el-input-number
                 placeholder="栅格值"
@@ -431,7 +460,7 @@
               <el-button
                 type="primary"
                 circle
-                style="margin-left: 5px;"
+                style="margin-left: 5px"
                 @click="handleOptionsRemove(index)"
               >
                 <SvgIcon iconClass="delete" />
@@ -471,9 +500,9 @@
         label="操作属性"
         v-if="
           hasKey('rules') ||
-            hasKey('readonly') ||
-            hasKey('disabled') ||
-            hasKey('allowClear')
+          hasKey('readonly') ||
+          hasKey('disabled') ||
+          hasKey('allowClear')
         "
       >
         <el-checkbox
@@ -572,10 +601,10 @@ export default defineComponent({
 
     watch(
       () => props.select,
-      val => (data.value = val)
+      (val) => (data.value = val)
     )
 
-    watch(data, val => context.emit('update:select', val), { deep: true })
+    watch(data, (val) => context.emit('update:select', val), { deep: true })
 
     const hasKey = (key: string) =>
       Object.keys(data.value.options).includes(key)

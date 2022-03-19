@@ -1,6 +1,19 @@
 <template>
+  <el-table
+    border
+    v-if="element.type === 'table'"
+    class="widget-view"
+    :data="element.options.defaultValue"
+  >
+    <el-table-column
+      v-for="i in element.columns"
+      :key="i.prop"
+      :align="element.options.align"
+      v-bind="i"
+    ></el-table-column>
+  </el-table>
   <el-form-item
-    v-if="element"
+    v-else-if="element"
     :key="element.key"
     :label="element.label"
     :prop="element.model"

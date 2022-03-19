@@ -369,5 +369,19 @@ export const layoutComponents = [
       justify: 'start',
       align: 'top'
     }
+  },
+  {
+    label: '数据表格',
+    type: 'table',
+    columns: [
+      { label: '名称', prop: 'name' },
+      { label: '创建时间', prop: 'createTime' }
+    ],
+    options: {
+      defaultValue: [],
+      disabled: false,
+      size: '',
+      align: 'center'
+    }
   }
 ]

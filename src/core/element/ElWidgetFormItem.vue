@@ -1,8 +1,24 @@
 <template>
   <div class="widget-item-container">
+    <el-table
+      border
+      v-if="element.type === 'table'"
+      class="widget-view"
+      :data="element.options.defaultValue"
+      :class="{ active: selectWidget?.key === element.key }"
+    >
+      <el-table-column
+        v-for="i in element.columns"
+        :key="i.prop"
+        :header-align="element.options.align"
+        :align="element.options.align"
+        v-bind="i"
+      ></el-table-column>
+    </el-table>
+
     <el-form-item
       class="widget-view"
-      v-if="element"
+      v-else-if="element"
       :key="element.key"
       :class="{ active: selectWidget?.key === element.key }"
       :label="element.label"

@@ -241,7 +241,7 @@ export default defineComponent({
     },
     layoutFields: {
       type: Array as PropType<Array<string>>,
-      default: () => ['grid']
+      default: () => ['grid', 'table']
     },
     request: {
       type: Function
@@ -271,7 +271,10 @@ export default defineComponent({
     const handleUploadJson = () => {
       try {
         state.widgetForm.list = []
-        state.widgetForm = defaultsDeep(JSON.parse(state.jsonEg), state.widgetForm)
+        state.widgetForm = defaultsDeep(
+          JSON.parse(state.jsonEg),
+          state.widgetForm
+        )
 
         if (state.widgetForm.list) {
           state.widgetFormSelect = state.widgetForm.list[0]
@@ -319,10 +322,7 @@ export default defineComponent({
 
     const handleClearable = () => {
       state.widgetForm.list = []
-      state.widgetForm = defaultsDeep(
-        element.widgetForm(),
-        state.widgetForm
-      )
+      state.widgetForm = defaultsDeep(element.widgetForm(), state.widgetForm)
       state.widgetFormSelect = undefined
     }
 
