@@ -116,7 +116,7 @@ const handleListInsert = (key: string, list: any[], obj: any) => {
       newList.push(item)
       newList.push(obj)
     } else {
-      if (item.columns) {
+      if (item.type === 'grid') {
         item.columns = item.columns.map((col: any) => ({
           ...col,
           list: handleListInsert(key, col.list, obj)
@@ -132,7 +132,7 @@ const handleListDelete = (key: string, list: any[]) => {
   const newList: any[] = []
   list.forEach((item) => {
     if (item.key !== key) {
-      if (item.columns) {
+      if (item.type === 'grid') {
         item.columns = item.columns.map((col: any) => ({
           ...col,
           list: handleListDelete(key, col.list)
