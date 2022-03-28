@@ -117,7 +117,7 @@
       </el-radio-group>
     </template>
 
-    <template v-if="element.type === 'checkbox' && data">
+    <template v-if="element.type === 'checkbox'">
       <el-checkbox-group
         v-model="data"
         :style="{ width: element.options.width }"
@@ -311,6 +311,10 @@ export default defineComponent({
       type: Object,
       required: true
     },
+    updatedModel: {
+      type: Object,
+      required: true
+    },
     disabled: {
       type: Boolean,
       required: true
@@ -320,11 +324,19 @@ export default defineComponent({
     }
   },
   setup(props) {
+    // eslint-disable-next-line vue/no-setup-props-destructure
+    const originData = props.model[props.element.model]
     const data = computed({
       get: () => props.model[props.element.model],
       set: (val) => {
         // eslint-disable-next-line vue/no-mutating-props
         props.model[props.element.model] = val
+        if (JSON.stringify(originData) === JSON.stringify(val)) {
+          Reflect.deleteProperty(props.updatedModel, props.element.model)
+        } else {
+          // eslint-disable-next-line vue/no-mutating-props
+          props.updatedModel[props.element.model] = val
+        }
       }
     })
 

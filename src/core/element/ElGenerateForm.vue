@@ -29,6 +29,7 @@
                 v-for="colItem of col.list"
                 :request="request"
                 :model="model"
+                :updatedModel="updatedModel"
                 :key="colItem.key"
                 :element="colItem"
                 :config="data.config"
@@ -40,6 +41,7 @@
         <ElGenerateFormItem
           v-else
           :model="model"
+          :updatedModel="updatedModel"
           :key="element.key"
           :element="widgetForm.list[index]"
           :config="data.config"
@@ -82,6 +84,7 @@ export default defineComponent({
     const state = reactive({
       generateForm: null as any,
       model: {} as any,
+      updatedModel: {} as any,
       rules: {} as any,
       widgetForm:
         (props.data && JSON.parse(JSON.stringify(props.data))) ??
@@ -160,7 +163,7 @@ export default defineComponent({
           .validate()
           .then((validate: boolean) => {
             if (validate) {
-              resolve(state.model)
+              resolve(state.updatedModel)
             } else {
               ElMessage.error('验证失败')
             }
