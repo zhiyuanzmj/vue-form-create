@@ -244,14 +244,24 @@
       </el-upload>
     </template>
 
+    <template v-if="element.type === 'download'" #label="{ label }">
+      <a
+        :href="`/api/sys/common/static/${element.options.defaultValue}?inline=1`"
+        style="color: #606266"
+        target="_blank"
+      >
+        {{ label }}
+      </a>
+    </template>
     <template v-if="element.type === 'download'">
       <el-button
         size="default"
         style="margin-top: -4px"
         @click="download(element.options.defaultValue, element.label)"
         type="text"
-        >下载</el-button
       >
+        下载
+      </el-button>
     </template>
 
     <template v-if="element.type === 'richtext-editor'">
