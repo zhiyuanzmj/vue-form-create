@@ -2,7 +2,6 @@
   <el-table
     border
     v-if="element.type === 'table'"
-    class="widget-view"
     :data="element.options.defaultValue"
   >
     <el-table-column
@@ -12,11 +11,21 @@
       v-bind="i"
     ></el-table-column>
   </el-table>
+  <el-divider
+    v-else-if="element.type === 'divider'"
+    :data="element.options.defaultValue"
+    content-position="left"
+  >
+    {{ element.label }}
+  </el-divider>
   <el-form-item
     v-else-if="element"
     :key="element.key"
     :label="element.label"
     :prop="element.model"
+    :style="
+      element.type === 'download' ? 'display:inline-flex;margin-right:40px' : ''
+    "
     :label-width="element.labelWidth"
   >
     <template v-if="element.type === 'input'">
@@ -231,9 +240,12 @@
         :on-success="handleUploadSuccess"
       >
         <template v-if="element.options.listType === 'picture-card'">
-          <img
+          <el-image
             v-if="element.options.defaultValue?.length"
             style="height: 100%; width: 100%"
+            :preview-src-list="[
+              '/api/sys/common/static/' + element.options.defaultValue
+            ]"
             :src="'/api/sys/common/static/' + element.options.defaultValue"
           />
           <SvgIcon v-else iconClass="insert" />
@@ -370,3 +382,9 @@ export default defineComponent({
   }
 })
 </script>
+<style scoped>
+:deep(.el-upload--picture-card) {
+  width: 134px;
+  height: 134px;
+}
+</style>

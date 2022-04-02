@@ -15,6 +15,16 @@
         v-bind="i"
       ></el-table-column>
     </el-table>
+    <div
+      v-else-if="element.type === 'divider'"
+      class="widget-view"
+      style="padding-bottom: 0"
+      :class="{ active: selectWidget?.key === element.key }"
+    >
+      <el-divider :data="element.options.defaultValue" content-position="left">
+        {{ element.label }}
+      </el-divider>
+    </div>
 
     <el-form-item
       class="widget-view"
@@ -229,9 +239,12 @@
           :disabled="element.options.disabled"
         >
           <template v-if="element.options.listType === 'picture-card'">
-            <img
+            <el-image
               v-if="element.options.defaultValue?.length"
-              style="height: 100%; width: 100%"
+              style="width: 100%; height: 100%"
+              :preview-src-list="[
+                '/api/sys/common/static/' + element.options.defaultValue
+              ]"
               :src="'/api/sys/common/static/' + element.options.defaultValue"
             />
             <SvgIcon v-else iconClass="insert" />
@@ -308,3 +321,9 @@ export default defineComponent({
   emits: ['copy', 'delete']
 })
 </script>
+<style scoped>
+:deep(.el-upload--picture-card) {
+  width: 141.5px;
+  height: 141.5px;
+}
+</style>

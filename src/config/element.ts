@@ -383,5 +383,10 @@ export const layoutComponents = [
       size: '',
       align: 'center'
     }
+  },
+  {
+    label: '分割线',
+    type: 'divider',
+    options: {}
   }
 ]

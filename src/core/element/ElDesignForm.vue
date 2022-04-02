@@ -82,12 +82,12 @@
         />
         <CodeEditor v-model:value="jsonEg" language="json" />
         <template #footer>
-          <el-button size="medium" @click="() => (uploadJsonVisible = false)"
-            >取消</el-button
-          >
-          <el-button type="primary" size="medium" @click="handleUploadJson"
-            >导入</el-button
-          >
+          <el-button size="medium" @click="() => (uploadJsonVisible = false)">
+            取消
+          </el-button>
+          <el-button type="primary" size="medium" @click="handleUploadJson">
+            导入
+          </el-button>
         </template>
       </el-dialog>
 
@@ -241,7 +241,7 @@ export default defineComponent({
     },
     layoutFields: {
       type: Array as PropType<Array<string>>,
-      default: () => ['grid', 'table']
+      default: () => ['grid', 'table', 'divider']
     },
     request: {
       type: Function
