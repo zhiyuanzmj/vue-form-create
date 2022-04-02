@@ -273,31 +273,6 @@ export default defineComponent({
         return false
       }
 
-      const key = v4().replaceAll('-', '')
-
-      row.columns[index].list[newIndex] = {
-        ...row.columns[index].list[newIndex],
-        key,
-        model: `${row.columns[index].list[newIndex].type}_${key}`,
-        rules: []
-      }
-
-      if (
-        row.columns[index].list[newIndex].type === 'radio' ||
-        row.columns[index].list[newIndex].type === 'checkbox' ||
-        row.columns[index].list[newIndex].type === 'select'
-      ) {
-        row.columns[index].list[newIndex] = {
-          ...row.columns[index].list[newIndex],
-          options: {
-            ...row.columns[index].list[newIndex].options,
-            options: row.columns[index].list[newIndex].options.options.map(
-              (item: any) => ({ ...item })
-            )
-          }
-        }
-      }
-
       context.emit('update:widgetFormSelect', row.columns[index].list[newIndex])
     }
 

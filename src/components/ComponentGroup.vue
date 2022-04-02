@@ -50,7 +50,7 @@ export default defineComponent({
   },
   setup() {
     return {
-      choneHandler(data:any) {
+      choneHandler(data: any) {
         return JSON.parse(JSON.stringify(data))
       }
     }
