@@ -27,8 +27,9 @@
     "src/index.d.ts"
   ],
   "scripts": {
-    "serve": "NODE_OPTIONS=--openssl-legacy-provider  vue-cli-service serve ./example/main.ts --open",
-    "build": "vue-cli-service build --target lib --name formCreate ./src/index.ts",
+    "dev": "NODE_OPTIONS=--openssl-legacy-provider vue-cli-service serve",
+    "serve": "NODE_OPTIONS=--openssl-legacy-provider vue-cli-service serve ./example/main.ts --open",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider vue-cli-service build --target lib --name formCreate ./src/index.ts",
     "lint": "vue-cli-service lint",
     "prepare": "husky install"
   },
@@ -44,6 +45,7 @@
     "wangeditor": "^4.6.13"
   },
   "devDependencies": {
+    "@types/node": "^20.12.11",
     "@commitlint/cli": "^12.0.1",
     "@commitlint/config-conventional": "^12.0.1",
     "@types/lodash": "^4.14.168",

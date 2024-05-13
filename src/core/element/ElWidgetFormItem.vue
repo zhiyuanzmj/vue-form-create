@@ -33,7 +33,7 @@
       :class="{ active: selectWidget?.key === element.key }"
       :label="element.label"
       :label-width="element.labelWidth"
-      :rules="element.options.rules"
+      :rules="element.options?.rules"
     >
       <template v-if="element.type === 'input'">
         <el-input

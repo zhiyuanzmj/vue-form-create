@@ -95,7 +95,7 @@ export default defineComponent({
       for (let index = 0; index < list.length; index++) {
         const model = list[index].model
         if (!model) {
-          return
+          continue
         }
         if (list[index].type === 'grid') {
           list[index].columns.forEach((col: any) => generateModel(col.list))
@@ -106,7 +106,7 @@ export default defineComponent({
             state.model[model] = list[index].options.defaultValue
           }
 
-          state.rules[model] = list[index].options.rules
+          state.rules[model] = list[index].options?.rules
         }
       }
     }

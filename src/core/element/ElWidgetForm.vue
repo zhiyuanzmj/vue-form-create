@@ -84,7 +84,6 @@
             </template>
             <template v-else>
               <ElWidgetFormItem
-                v-if="element.key"
                 :key="element.key"
                 :element="element"
                 :config="widgetForm.config"
