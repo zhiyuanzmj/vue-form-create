@@ -1,7 +1,7 @@
 {
   "name": "@zhiyuanzmj/vue-form-create",
   "description": "一个基于Vue3.0 + TS 的表单设计器",
-  "version": "1.4.27",
+  "version": "1.4.28",
   "main": "dist/formCreate.umd.min.js",
   "types": "src/index.d.ts",
   "homepage": "https://github.com/zhiyuanzmj/vue-form-create",
@@ -31,7 +31,8 @@
     "serve": "NODE_OPTIONS=--openssl-legacy-provider vue-cli-service serve ./example/main.ts --open",
     "build": "NODE_OPTIONS=--openssl-legacy-provider vue-cli-service build --target lib --name formCreate ./src/index.ts",
     "lint": "vue-cli-service lint",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "release": "pnpm publish --access public --no-git-checks"
   },
   "dependencies": {
     "ace-builds": "^1.4.12",
