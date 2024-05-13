@@ -5,7 +5,7 @@
     item-key="type"
     ghostClass="ghost"
     :group="{ name: 'people', pull: 'clone', put: false }"
-    :clone="choneHandler"
+    :clone="cloneWidget"
     :sort="false"
     :list="list"
   >
@@ -28,6 +28,7 @@
 import { defineComponent, PropType } from 'vue'
 import Draggable from 'vuedraggable'
 import SvgIcon from './SvgIcon.vue'
+import { cloneDeep } from 'lodash'
 
 export default defineComponent({
   name: 'ComponentGroup',
@@ -49,10 +50,22 @@ export default defineComponent({
     }
   },
   setup() {
-    return {
-      choneHandler(data: any) {
-        return JSON.parse(JSON.stringify(data))
+    function cloneWidget(params: any) {
+      const key = Math.random().toString(36).substring(2, 9)
+      params = cloneDeep({
+        ...params,
+        key
+      })
+      if (params.type === 'grid') {
+        params.columns.forEach((i: any) => {
+          i.list = i.list.map(cloneWidget)
+        })
       }
+      return params
+    }
+
+    return {
+      cloneWidget
     }
   }
 })
